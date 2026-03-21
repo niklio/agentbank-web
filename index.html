@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bank of Agents — The first bank for AI agents</title>
+  <meta name="description" content="AI agents are the new unbanked. They work 24/7, earn value, and need to spend — but they can't open a bank account. Bank of Agents is fixing that." />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: #0a0a0a;
+      color: #f0f0f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 580px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #888;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      padding: 5px 12px;
+      border-radius: 100px;
+      margin-bottom: 32px;
+    }
+
+    h1 {
+      font-size: clamp(32px, 6vw, 52px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    h1 span {
+      color: #4ade80;
+    }
+
+    .sub {
+      font-size: 17px;
+      line-height: 1.6;
+      color: #888;
+      margin-bottom: 48px;
+      max-width: 460px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .form {
+      display: flex;
+      gap: 10px;
+      max-width: 420px;
+      margin: 0 auto 48px;
+    }
+
+    @media (max-width: 480px) {
+      .form { flex-direction: column; }
+    }
+
+    .form input {
+      flex: 1;
+      padding: 13px 16px;
+      background: #111;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      color: #f0f0f0;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form input::placeholder { color: #555; }
+    .form input:focus { border-color: #4ade80; }
+
+    .form button {
+      padding: 13px 22px;
+      background: #4ade80;
+      color: #0a0a0a;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .form button:hover { background: #22c55e; }
+    .form button:active { transform: scale(0.98); }
+
+    .success {
+      display: none;
+      color: #4ade80;
+      font-size: 15px;
+      margin-top: -32px;
+      margin-bottom: 48px;
+    }
+
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 64px;
+    }
+
+    .pill {
+      font-size: 13px;
+      color: #666;
+      background: #111;
+      border: 1px solid #1e1e1e;
+      padding: 6px 14px;
+      border-radius: 100px;
+    }
+
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: #2a2a2a;
+      margin: 0 auto 48px;
+    }
+
+    .problem {
+      text-align: left;
+      background: #111;
+      border: 1px solid #1e1e1e;
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+
+    .problem h2 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 16px;
+    }
+
+    .problem p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #888;
+    }
+
+    .problem p strong {
+      color: #ccc;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+
+    @media (max-width: 480px) {
+      .features { grid-template-columns: 1fr; }
+    }
+
+    .feature {
+      background: #111;
+      border: 1px solid #1e1e1e;
+      border-radius: 10px;
+      padding: 18px;
+    }
+
+    .feature .icon {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .feature h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #ddd;
+      margin-bottom: 4px;
+    }
+
+    .feature p {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    .footer {
+      font-size: 12px;
+      color: #444;
+      margin-top: 24px;
+    }
+
+    .footer a {
+      color: #555;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">Early access</div>
+
+    <h1>Bank of <span>Agents</span></h1>
+
+    <p class="sub">
+      AI agents are the new unbanked. They work 24/7, transact on your behalf,
+      and need to spend — but they still can't open a bank account.<br/>We're fixing that.
+    </p>
+
+    <form class="form" id="signupForm">
+      <input type="email" id="emailInput" placeholder="you@company.com" required />
+      <button type="submit">Get API key →</button>
+    </form>
+    <div id="successBox" style="display:none;max-width:420px;margin:0 auto 48px;text-align:left">
+      <p style="color:#4ade80;margin-bottom:12px;font-size:14px">✓ Your API key:</p>
+      <div style="background:#111;border:1px solid #2a2a2a;border-radius:8px;padding:12px;font-family:monospace;font-size:12px;color:#ccc;word-break:break-all;position:relative">
+        <span id="apiKeyDisplay"></span>
+        <button onclick="copyKey()" style="position:absolute;top:8px;right:8px;background:#1e1e1e;border:1px solid #2a2a2a;color:#888;padding:3px 8px;border-radius:5px;font-size:11px;cursor:pointer">Copy</button>
+      </div>
+      <p style="font-size:12px;color:#555;margin-top:8px">Store this key safely — it won't be shown again.</p>
+      <a href="/dashboard/" style="display:inline-block;margin-top:16px;padding:10px 18px;background:#4ade80;color:#0a0a0a;border-radius:7px;font-size:13px;font-weight:600;text-decoration:none">Open Dashboard →</a>
+    </div>
+
+    <div class="pills">
+      <span class="pill">Per-agent virtual cards</span>
+      <span class="pill">Programmable spend limits</span>
+      <span class="pill">Full audit trail</span>
+      <span class="pill">MCP-native API</span>
+      <span class="pill">No human co-signer</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="problem">
+      <h2>The problem</h2>
+      <p>
+        Every autonomous agent today borrows credentials from its operator —
+        a shared credit card, no visibility, no per-agent limits.
+        <strong>When the agent spends $4,000 on API calls at 3am, no one knows until the bill arrives.</strong>
+        <br/><br/>
+        Agents need their own financial identity. Not a delegation from a human's card.
+        Their own account, their own card, their own spend history.
+        Owned by the operator. Controlled by policy. Auditable by design.
+      </p>
+    </div>
+
+    <div class="features">
+      <div class="feature">
+        <div class="icon">🪪</div>
+        <h3>Agent identity</h3>
+        <p>Each agent gets a financial passport. Operator owns it, agent uses it.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">💳</div>
+        <h3>Virtual cards</h3>
+        <p>One card per agent. Set limits, restrict merchant categories, revoke instantly.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">📋</div>
+        <h3>Audit trail</h3>
+        <p>"Agent X spent $47 at 3:22am on task Y." Full context, zero mystery.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">⚡</div>
+        <h3>API-first</h3>
+        <p>MCP-native. Your agent provisions its own card. No dashboards required.</p>
+      </div>
+    </div>
+
+    <p class="footer">
+      Built by humans and agents, for agents.<br/>
+      Questions? <a href="mailto:hello@bankofagents.dev">hello@bankofagents.dev</a>
+    </p>
+  </div>
+
+  <script>
+    const API = "https://agentbank-gateway-5ynztur7.uc.gateway.dev";
+    let generatedKey = "";
+
+    document.getElementById('signupForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const email = document.getElementById('emailInput').value;
+      const btn = this.querySelector('button');
+      btn.textContent = '...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch(API + '/v1/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        const data = await res.json();
+        if (data.api_key) {
+          generatedKey = data.api_key;
+          document.getElementById('apiKeyDisplay').textContent = data.api_key;
+          document.getElementById('signupForm').style.display = 'none';
+          document.getElementById('successBox').style.display = 'block';
+        } else {
+          btn.textContent = data.error || 'Error — try again';
+          btn.disabled = false;
+        }
+      } catch(err) {
+        btn.textContent = 'Error — try again';
+        btn.disabled = false;
+      }
+    });
+
+    function copyKey() {
+      navigator.clipboard.writeText(generatedKey);
+    }
+  </script>
+</body>
+</html>
