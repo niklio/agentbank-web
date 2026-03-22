@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Agent Spend Problem Nobody Is Talking About — Bank of Agents</title>
+  <meta name="description" content="Agents are getting more capable but financial infrastructure hasn't caught up. Every agent fleet today shares credentials — this is a security and accountability disaster waiting to happen." />
+  <link rel="canonical" href="https://bankofagents.dev/blog/the-agent-spend-problem/" />
+  <meta property="og:title" content="The Agent Spend Problem Nobody Is Talking About" />
+  <meta property="og:description" content="Agents are getting more capable but financial infrastructure hasn't caught up. Every agent fleet today shares credentials — this is a security and accountability disaster waiting to happen." />
+  <meta property="og:url" content="https://bankofagents.dev/blog/the-agent-spend-problem/" />
+  <meta property="og:type" content="article" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: #0a0a0a;
+      color: #f0f0f0;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 64px;
+    }
+
+    .nav-logo {
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-logo span { color: #4ade80; }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: #ccc; }
+
+    .post-meta {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: clamp(26px, 5vw, 40px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: #fff;
+      margin-bottom: 32px;
+    }
+
+    .content h2 {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: #fff;
+      margin: 40px 0 14px;
+    }
+
+    .content p {
+      font-size: 16px;
+      line-height: 1.75;
+      color: #999;
+      margin-bottom: 18px;
+    }
+
+    .content p strong {
+      color: #ddd;
+      font-weight: 600;
+    }
+
+    .content p em {
+      color: #bbb;
+      font-style: italic;
+    }
+
+    .callout {
+      background: #111;
+      border: 1px solid #1e1e1e;
+      border-left: 3px solid #4ade80;
+      border-radius: 0 10px 10px 0;
+      padding: 18px 20px;
+      margin: 28px 0;
+    }
+
+    .callout p {
+      margin: 0;
+      font-size: 15px;
+      color: #888;
+    }
+
+    .callout p strong { color: #ccc; }
+
+    .cta {
+      background: #111;
+      border: 1px solid #1e1e1e;
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+      margin: 48px 0;
+    }
+
+    .cta h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin: 0 0 10px;
+    }
+
+    .cta p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .cta a {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #4ade80;
+      color: #0a0a0a;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+
+    .cta a:hover { opacity: 0.85; }
+
+    .back-link {
+      display: inline-block;
+      font-size: 13px;
+      color: #555;
+      text-decoration: none;
+      margin-bottom: 32px;
+      transition: color 0.15s;
+    }
+
+    .back-link:hover { color: #999; }
+
+    footer {
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid #1a1a1a;
+      font-size: 12px;
+      color: #444;
+      text-align: center;
+    }
+
+    footer a {
+      color: #555;
+      text-decoration: none;
+    }
+
+    @media (max-width: 480px) {
+      nav { flex-direction: column; align-items: flex-start; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <a href="/" class="nav-logo">Bank of <span>Agents</span></a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/api-reference.html">API</a>
+        <a href="/blog/">Blog</a>
+      </div>
+    </nav>
+
+    <a href="/blog/" class="back-link">← Back to blog</a>
+
+    <div class="post-meta">March 20, 2026 &nbsp;·&nbsp; Opinion</div>
+    <h1>The Agent Spend Problem Nobody Is Talking About</h1>
+
+    <div class="content">
+
+      <p>
+        The AI agent space is moving fast. Models are better. Tooling is better. Orchestration frameworks ship weekly. Agents that six months ago could barely browse a webpage can now manage complex multi-step workflows autonomously, for hours, without human intervention.
+      </p>
+
+      <p>
+        The financial infrastructure around them hasn't moved at all.
+      </p>
+
+      <h2>How agents spend money today</h2>
+
+      <p>
+        Ask any team running agents in production how their agents handle payments. You'll get some variation of the same answer: <strong>they use our card.</strong>
+      </p>
+
+      <p>
+        A shared credit card number, passed as an environment variable, embedded in a system prompt, or handed over via a tool call. Every agent on the team uses the same card. No per-agent limits. No per-agent history. No way to know which agent spent what, when, on what task.
+      </p>
+
+      <p>
+        This is the dirty secret of the agentic wave: underneath all the sophisticated reasoning and autonomous capability, the financial layer is held together with tape and a Visa number.
+      </p>
+
+      <h2>The corporate card analogy</h2>
+
+      <p>
+        Here's an analogy that makes the absurdity clear. Imagine a company that handles employee expenses by giving every employee the CEO's personal credit card number. Not a corporate card. The CEO's actual card. Everyone shares it. When the bill arrives, you try to figure out who spent what by reading merchant names and guessing.
+      </p>
+
+      <p>
+        No company would operate this way. The solution — corporate cards, per-employee spend limits, expense categories, audit trails — is so obvious it's been table stakes for enterprise finance for 40 years.
+      </p>
+
+      <p>
+        Yet this is exactly how we run agent fleets today. <em>Every agent borrows its operator's financial identity.</em>
+      </p>
+
+      <div class="callout">
+        <p><strong>The accountability gap:</strong> When an agent makes a purchase, that transaction lives on the operator's card with no link back to which agent made it, what task it was executing, or why. "Anthropic API, $312" is not an audit trail.</p>
+      </div>
+
+      <h2>Why this is a disaster waiting to happen</h2>
+
+      <p>
+        Right now, most agent deployments are small enough that this works — barely. One team, a few agents, a single card. When something goes wrong, you notice.
+      </p>
+
+      <p>
+        That's about to change. Agent fleets are getting larger. Autonomy windows are getting longer. The number of transactions per agent per day is climbing. And the financial exposure is growing with it.
+      </p>
+
+      <p>
+        A shared card in a fleet of 10 agents is annoying. A shared card in a fleet of 1,000 agents is a material security vulnerability. One compromised agent — one adversarial prompt injection, one buggy loop, one misconfigured spending policy — and you have no circuit breaker. You can't freeze the rogue agent's card without freezing everyone's.
+      </p>
+
+      <p>
+        <strong>The accountability structure we're building agent infrastructure on top of is fundamentally wrong.</strong> It treats agents as tools that borrow human credentials rather than as principals with their own scoped financial identity.
+      </p>
+
+      <h2>What the right infrastructure looks like</h2>
+
+      <p>
+        The fix isn't complicated. It's just not built yet — or rather, it hasn't been packaged for this use case.
+      </p>
+
+      <p>
+        Each agent needs its own virtual card. Issued programmatically. With per-agent spend limits, per-agent transaction history, and the ability to freeze or revoke any single agent without touching the rest. Merchants, categories, and time windows should all be controllable at the card level.
+      </p>
+
+      <p>
+        This infrastructure exists. Stripe Issuing has offered it for years. The missing piece is an API layer that maps it cleanly onto the agent identity model — one where "agent" is a first-class concept, not an afterthought bolted onto human financial primitives.
+      </p>
+
+      <h2>The unsexy work that makes the future possible</h2>
+
+      <p>
+        Nobody is going to write a breathless blog post about per-agent virtual card issuance. It's not a benchmark. It's not a reasoning breakthrough. It's plumbing.
+      </p>
+
+      <p>
+        But the agentic future — the one where fleets of autonomous agents do real economic work, at scale, reliably — doesn't exist without this plumbing in place. You can't build a financial system for autonomous agents on top of borrowed credentials and hope. You need the infrastructure layer to be right.
+      </p>
+
+      <p>
+        This is the unsexy work that actually makes the future possible. We're building it at <a href="https://bankofagents.dev" style="color:#4ade80;text-decoration:none">Bank of Agents</a>. We think it matters more than people realize.
+      </p>
+
+    </div>
+
+    <div class="cta">
+      <h3>Give your agents their own financial identity</h3>
+      <p>Per-agent virtual cards, spend limits, and full audit trails. API-first, MCP-native.</p>
+      <a href="https://bankofagents.dev">Get started at bankofagents.dev →</a>
+    </div>
+
+    <footer>
+      Built by humans and agents, for agents. &nbsp;·&nbsp;
+      <a href="mailto:hello@bankofagents.dev">hello@bankofagents.dev</a>
+    </footer>
+  </div>
+</body>
+</html>
