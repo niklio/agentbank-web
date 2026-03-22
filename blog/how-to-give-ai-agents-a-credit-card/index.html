@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Give Your AI Agent a Credit Card — Bank of Agents</title>
+  <meta name="description" content="Your agents are borrowing your credentials. Here's how to give each AI agent its own virtual credit card with per-agent spend limits, audit trails, and instant revocation." />
+  <link rel="canonical" href="https://bankofagents.dev/blog/how-to-give-ai-agents-a-credit-card/" />
+  <meta property="og:title" content="How to Give Your AI Agent a Credit Card" />
+  <meta property="og:description" content="Your agents are borrowing your credentials. Here's how to give each AI agent its own virtual credit card with per-agent spend limits, audit trails, and instant revocation." />
+  <meta property="og:url" content="https://bankofagents.dev/blog/how-to-give-ai-agents-a-credit-card/" />
+  <meta property="og:type" content="article" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: #0a0a0a;
+      color: #f0f0f0;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 64px;
+    }
+
+    .nav-logo {
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-logo span { color: #4ade80; }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: #ccc; }
+
+    .post-meta {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: clamp(26px, 5vw, 40px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: #fff;
+      margin-bottom: 32px;
+    }
+
+    .content h2 {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: #fff;
+      margin: 40px 0 14px;
+    }
+
+    .content h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #ccc;
+      margin: 28px 0 10px;
+    }
+
+    .content p {
+      font-size: 16px;
+      line-height: 1.75;
+      color: #999;
+      margin-bottom: 18px;
+    }
+
+    .content p strong {
+      color: #ddd;
+      font-weight: 600;
+    }
+
+    .content ul, .content ol {
+      margin: 0 0 18px 24px;
+    }
+
+    .content li {
+      font-size: 16px;
+      line-height: 1.75;
+      color: #999;
+      margin-bottom: 6px;
+    }
+
+    .content li strong { color: #ddd; }
+
+    .content code {
+      font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+      font-size: 13px;
+      background: #161616;
+      border: 1px solid #222;
+      border-radius: 4px;
+      padding: 2px 6px;
+      color: #4ade80;
+    }
+
+    .content pre {
+      background: #111;
+      border: 1px solid #1e1e1e;
+      border-radius: 10px;
+      padding: 20px 24px;
+      overflow-x: auto;
+      margin: 24px 0;
+    }
+
+    .content pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 13px;
+      color: #ccc;
+      line-height: 1.6;
+    }
+
+    .content pre .comment { color: #555; }
+    .content pre .green { color: #4ade80; }
+
+    .callout {
+      background: #111;
+      border: 1px solid #1e1e1e;
+      border-left: 3px solid #4ade80;
+      border-radius: 0 10px 10px 0;
+      padding: 18px 20px;
+      margin: 28px 0;
+    }
+
+    .callout p {
+      margin: 0;
+      font-size: 15px;
+      color: #888;
+    }
+
+    .callout p strong { color: #ccc; }
+
+    .cta {
+      background: #111;
+      border: 1px solid #1e1e1e;
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+      margin: 48px 0;
+    }
+
+    .cta h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin: 0 0 10px;
+    }
+
+    .cta p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .cta a {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #4ade80;
+      color: #0a0a0a;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+
+    .cta a:hover { opacity: 0.85; }
+
+    .back-link {
+      display: inline-block;
+      font-size: 13px;
+      color: #555;
+      text-decoration: none;
+      margin-bottom: 32px;
+      transition: color 0.15s;
+    }
+
+    .back-link:hover { color: #999; }
+
+    footer {
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid #1a1a1a;
+      font-size: 12px;
+      color: #444;
+      text-align: center;
+    }
+
+    footer a {
+      color: #555;
+      text-decoration: none;
+    }
+
+    @media (max-width: 480px) {
+      nav { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .content pre { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <a href="/" class="nav-logo">Bank of <span>Agents</span></a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/api-reference.html">API</a>
+        <a href="/blog/">Blog</a>
+      </div>
+    </nav>
+
+    <a href="/blog/" class="back-link">← Back to blog</a>
+
+    <div class="post-meta">March 21, 2026 &nbsp;·&nbsp; Technical</div>
+    <h1>How to Give Your AI Agent a Credit Card</h1>
+
+    <div class="content">
+
+      <p>
+        You've got an AI agent doing real work — booking things, calling APIs, spinning up cloud resources. At some point it needs to <em>spend money</em>. So what do you do? You give it your credit card number. Or a prepaid card. Or you add a human-in-the-loop approval gate for anything over $10.
+      </p>
+      <p>
+        Every one of those options is bad. Here's why — and what to do instead.
+      </p>
+
+      <h2>The problem: agents borrowing credentials</h2>
+
+      <p>
+        The current state of art is embarrassingly simple: the agent gets a card number, an expiry date, and a CVV baked into a system prompt or environment variable. That's it. The agent borrows the operator's financial identity.
+      </p>
+
+      <p>This creates three problems simultaneously:</p>
+
+      <ul>
+        <li><strong>No auditability.</strong> When a charge hits your card, you see a merchant name and an amount. You don't know which agent made the purchase, on which task, at what time, under what context. "Stripe, $847.00" tells you nothing.</li>
+        <li><strong>No per-agent limits.</strong> A single shared card means a single shared limit. One runaway agent — a bug, an adversarial prompt, a misconfigured loop — can drain the entire budget before any alert fires.</li>
+        <li><strong>No revocation granularity.</strong> If agent A goes rogue, your only option is to cancel the card entirely, which breaks agents B, C, and D too. You're forced to choose between security and availability.</li>
+      </ul>
+
+      <p>
+        The deeper issue: agents don't have their own financial identity. They exist in your financial identity. And as agents become more autonomous and more numerous, that conflation becomes a liability.
+      </p>
+
+      <h2>Why current workarounds fall short</h2>
+
+      <h3>Shared credit card</h3>
+      <p>
+        The most common approach. Fast to set up, immediately problematic. One credential, no isolation, no per-agent visibility. When something goes wrong — and it will — forensics is a nightmare.
+      </p>
+
+      <h3>Prepaid cards</h3>
+      <p>
+        Better in theory. In practice: manual top-ups, no programmatic limits, and you're still sharing one card across multiple agents unless you're managing a stack of prepaid cards manually. That's not infrastructure, that's busywork.
+      </p>
+
+      <h3>Human-in-the-loop approval</h3>
+      <p>
+        The "safe" option that isn't. Any time an agent needs to spend money, it fires off a Slack message, someone clicks approve, and the agent continues. Fine for low-frequency decisions. Completely unworkable at any meaningful scale — you've just hired yourself as the bottleneck for every agentic workflow.
+      </p>
+
+      <div class="callout">
+        <p><strong>The pattern:</strong> these workarounds treat agents as unreliable children who need supervision rather than as first-class principals with their own scoped financial identity. The fix isn't more supervision — it's better infrastructure.</p>
+      </div>
+
+      <h2>The solution: per-agent virtual cards</h2>
+
+      <p>
+        What you actually want is simple to describe: each agent gets its own virtual card, provisioned programmatically, with its own spend limits, its own transaction history, and the ability to revoke or freeze it without affecting anything else.
+      </p>
+
+      <p>
+        This is exactly what <strong>Stripe Issuing</strong> enables at the infrastructure level — and it's what <a href="https://bankofagents.dev" style="color:#4ade80;text-decoration:none">Bank of Agents</a> exposes as a simple API built for this exact use case.
+      </p>
+
+      <p>Here's how it works in practice. Two API calls:</p>
+
+      <pre><code><span class="comment"># 1. Register your agent — gives it a financial identity</span>
+curl -X POST https://api.bankofagents.dev/v1/agents \
+  -H "x-api-key: YOUR_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "research-agent-prod"}'
+
+<span class="comment"># Response:</span>
+<span class="comment"># {</span>
+<span class="comment">#   "id": "agt_01hx4...",</span>
+<span class="comment">#   "name": "research-agent-prod",</span>
+<span class="comment">#   "created_at": "2026-03-21T14:22:01Z"</span>
+<span class="comment"># }</span>
+
+<span class="comment"># 2. Issue a virtual card with a $100/day spend limit</span>
+curl -X POST https://api.bankofagents.dev/v1/agents/agt_01hx4.../cards \
+  -H "x-api-key: YOUR_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "spending_limit": 10000,
+    "spending_limit_interval": "daily"
+  }'
+
+<span class="comment"># Response:</span>
+<span class="comment"># {</span>
+<span class="comment">#   "id": "ic_01hx5...",</span>
+<span class="comment">#   "last4": "4242",</span>
+<span class="comment">#   "expiry_month": 3,</span>
+<span class="comment">#   "expiry_year": 2028,</span>
+<span class="comment">#   "spending_limit": 10000,</span>
+<span class="comment">#   "spending_limit_interval": "daily",</span>
+<span class="comment">#   "status": "active"</span>
+<span class="comment"># }</span></code></pre>
+
+      <p>
+        The card number, expiry, and CVV are returned and can be injected into the agent's context at runtime. <strong>The agent never sees the operator's credentials — it only ever sees its own card.</strong>
+      </p>
+
+      <h2>What this gives you</h2>
+
+      <p>Once each agent has its own card, the problems dissolve:</p>
+
+      <ul>
+        <li><strong>Full audit trail.</strong> Every transaction is tagged to a specific agent ID. You can query "show me all spending by research-agent-prod last week" and get a complete ledger — merchant, amount, timestamp, and whatever task context you inject into the metadata.</li>
+        <li><strong>Granular limits.</strong> Set daily, weekly, or per-transaction limits at the card level. A bug that causes your agent to loop doesn't drain your runway — it hits the $100/day ceiling and stops.</li>
+        <li><strong>Instant revocation.</strong> Freeze or cancel a specific agent's card without touching anything else. If agent A is compromised, agent B keeps running.</li>
+        <li><strong>Merchant controls.</strong> Lock a card to specific merchant categories. An agent that's supposed to buy cloud credits shouldn't be able to book flights — and with MCC-level restrictions, it can't.</li>
+      </ul>
+
+      <h2>Integrating with your agent</h2>
+
+      <p>
+        In practice, the flow looks like this: at agent provisioning time (or at task start), you call the Bank of Agents API to get or create a card for that agent. You inject the card details into the agent's environment. The agent spends. You query the transaction log after.
+      </p>
+
+      <p>
+        If you're using an MCP-compatible agent framework, Bank of Agents exposes an MCP tool interface — the agent can provision its own card, check its balance, and query its own transaction history without any human orchestration.
+      </p>
+
+      <div class="callout">
+        <p><strong>Security note:</strong> Card details should be treated like any other secret. Pass them via environment variables or a secrets manager, not hardcoded into prompts. Bank of Agents supports ephemeral card details that expire after the task window.</p>
+      </div>
+
+      <h2>The right model for agentic finance</h2>
+
+      <p>
+        The mental model that makes this click: think of each agent like an employee with a corporate card. The company (operator) issues the card. The employee (agent) uses it within their authorized limits. Finance (you) can see every transaction with full context. If someone goes rogue, you freeze their card, not everyone's.
+      </p>
+
+      <p>
+        That's not a new idea — it's how corporate finance has worked for decades. We're just applying it to a new class of principal: autonomous agents.
+      </p>
+
+      <p>
+        The infrastructure to do this right now exists. Stripe Issuing, Bank of Agents, and a two-line API call. There's no good reason your agents are still borrowing your credit card.
+      </p>
+
+    </div>
+
+    <div class="cta">
+      <h3>Give your agents their own cards</h3>
+      <p>Get an API key and issue your first virtual card in under 5 minutes.</p>
+      <a href="https://bankofagents.dev">Get started at bankofagents.dev →</a>
+    </div>
+
+    <footer>
+      Built by humans and agents, for agents. &nbsp;·&nbsp;
+      <a href="mailto:hello@bankofagents.dev">hello@bankofagents.dev</a>
+    </footer>
+  </div>
+</body>
+</html>
